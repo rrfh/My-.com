@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ÉLITE | براندات خاصة</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: #0f0f0f;
+      --glass-bg: rgba(20, 20, 25, 0.35);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent: #d4af37;
+      --text: #f5f5f5;
+      --text-muted: #b0b0b0;
+      --light-bg: #f5f5f5;
+      --light-text: #0f0f0f;
+      --light-accent: #a07a2a;
+    }
+
+    body.light {
+      --bg: var(--light-bg);
+      --text: var(--light-text);
+      --accent: var(--light-accent);
+      --glass-bg: rgba(255, 255, 255, 0.35);
+      --glass-border: rgba(0, 0, 0, 0.08);
+      --text-muted: #505050;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(212,175,55,0.06) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(100,80,30,0.08) 0%, transparent 50%);
+      transition: background 0.5s, color 0.5s;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 2.5rem;
+      font-weight: 400;
+      transition: color 0.4s ease;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .cart-icon {
+      position: relative;
+      margin-left: 2rem;
+      cursor: pointer;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 50%;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .mode-toggle {
+      margin-left: 2rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      height: 100vh;
+      min-height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 0 5%;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      z-index: 1;
+    }
+
+    .hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.65);
+      will-change: transform;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 12vw, 9rem);
+      line-height: 0.92;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      color: var(--text-muted);
+    }
+
+    .shop-btn {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 1.1rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: all 0.5s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .shop-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(212,175,55,0.25);
+    }
+
+    #search-bar {
+      width: 100%;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: var(--glass-bg);
+      border-radius: 50px;
+      display: flex;
+      backdrop-filter: blur(10px);
+    }
+
+    #search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      padding: 0 1rem;
+    }
+
+    #search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    section {
+      padding: 8rem 5%;
+    }
+
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4.5rem;
+      text-align: center;
+      margin-bottom: 5rem;
+      background: linear-gradient(90deg, var(--accent), #f5e050, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--glass-bg);
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
+    }
+
+    .card img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      transition: transform 1.2s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.12);
+    }
+
+    .card-info {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price {
+      font-size: 1.4rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 900px;
+      width: 90%;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .modal-img {
+      width: 50%;
+      border-radius: 16px;
+    }
+
+    .modal-info {
+      width: 50%;
+    }
+
+    .modal h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .add-to-cart {
+      padding: 1rem 2rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.3s;
+    }
+
+    .add-to-cart:hover {
+      transform: scale(1.05);
+    }
+
+    .close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    /* Cart Modal */
+    #cart-modal .modal-content {
+      flex-direction: column;
+      max-width: 600px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      padding: 4rem 5%;
+      text-align: center;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      margin: 0 1rem;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    #qr-code {
+      margin: 2rem auto;
+      width: 150px;
+      height: 150px;
+    }
+
+    @media (max-width: 768px) {
+      .modal-content {
+        flex-direction: column;
+      }
+      .modal-img, .modal-info {
+        width: 100%;
+      }
+      .hero h1 { font-size: 4rem; }
+      h2 { font-size: 3rem; }
+      .grid { grid-template-columns: 1fr; }
+      .card img { height: 350px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">ÉLITE</div>
+    <nav>
+      <a href="#">الجديد</a>
+      <a href="#">رجالي</a>
+      <a href="#">نسائي</a>
+      <a href="#">IQD ▼</a>
+      <div class="cart-icon">🛒 <span class="cart-count" id="cart-count">0</span></div>
+      <div class="mode-toggle" id="mode-toggle">🌙</div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=90&w=2000" alt="Luxury Fashion">
+    <div class="hero-content">
+      <h1>الأناقة<br>بلا حدود</h1>
+      <p>مجموعات حصرية — براندات نادرة — تصاميم لا تتكرر</p>
+      <a href="#products" class="shop-btn">استكشف المجموعة</a>
+    </div>
+  </section>
+
+  <div id="search-bar">
+    <input type="text" id="search-input" placeholder="ابحث عن براند أو منتج...">
+  </div>
+
+  <section id="products">
+    <h2>أحدث الإصدارات</h2>
+    <div class="grid" id="product-grid">
+      <div class="card" data-name="Obsidian Crocodile" data-price="1450000" data-desc="تصميم جلدي فاخر مستوحى من التماسيح، مثالي للمناسبات الرسمية.">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=90&w=800" alt="Product 1">
+        <div class="card-info">
+          <h3>Obsidian Crocodile</h3>
+          <div class="price">IQD 1,450,000</div>
+        </div>
+      </div>
+      <div class="card" data-name="Velvet Shadow Drop" data-price="980000" data-desc="قميص مخملي أسود مع تفاصيل ذهبية، لإطلالة ليلية أنيقة.">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=90&w=800" alt="Product 2">
+        <div class="card-info">
+          <h3>Velvet Shadow Drop</h3>
+          <div class="price">IQD 980,000</div>
+        </div>
+      </div>
+      <div class="card" data-name="Platinum Ember" data-price="2100000" data-desc="جاكيت بلاتينيوم مع لمسات نارية، مصمم للشتاء الفاخر.">
+        <img src="https://images.unsplash.com/photo-1618354691552-1205a225f9b8?auto=format&fit=crop&q=90&w=800" alt="Product 3">
+        <div class="card-info">
+          <h3>Platinum Ember</h3>
+          <div class="price">IQD 2,100,000</div>
+        </div>
+      </div>
+      <div class="card" data-name="Golden Horizon" data-price="1750000" data-desc="فستان ذهبي مع تفاصيل أفقية، مثالي للحفلات.">
+        <img src="https://images.unsplash.com/photo-1566174053879-31528523f2ae?auto=format&fit=crop&q=90&w=800" alt="Product 4">
+        <div class="card-info">
+          <h3>Golden Horizon</h3>
+          <div class="price">IQD 1,750,000</div>
+        </div>
+      </div>
+      <div class="card" data-name="Sapphire Veil" data-price="1200000" data-desc="حجاب ياقوتي مع طبقات شفافة، لإطلالة عصرية.">
+        <img src="https://images.unsplash.com/photo-1585128792020-817b91ed3140?auto=format&fit=crop&q=90&w=800" alt="Product 5">
+        <div class="card-info">
+          <h3>Sapphire Veil</h3>
+          <div class="price">IQD 1,200,000</div>
+        </div>
+      </div>
+      <div class="card" data-name="Emerald Legacy" data-price="2500000" data-desc="بدلة زمردية تقليدية مع لمسات حديثة.">
+        <img src="https://images.unsplash.com/photo-1525507119028-ed4c66a0dfc0?auto=format&fit=crop&q=90&w=800" alt="Product 6">
+        <div class="card-info">
+          <h3>Emerald Legacy</h3>
+          <div class="price">IQD 2,500,000</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Modal -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <img id="modal-img" class="modal-img" src="" alt="">
+      <div class="modal-info">
+        <h2 id="modal-title"></h2>
+        <div id="modal-price" class="price"></div>
+        <p id="modal-desc"></p>
+        <button class="add-to-cart">إضافة إلى السلة</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Modal -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>سلة التسوق</h2>
+      <div id="cart-items"></div>
+      <div id="cart-total" class="price">الإجمالي: IQD 0</div>
+    </div>
+  </div>
+
+  <footer>
+    <div id="qr-code"></div>
+    <p>ادفع بسهولة عبر QR</p>
+    <div>
+      <a href="#">فيسبوك</a>
+      <a href="#">إنستغرام</a>
+      <a href="#">سياسة الخصوصية</a>
+      <a href="#">شروط الاستخدام</a>
+    </div>
+    <p>&copy; 2026 ÉLITE. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <script>
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to(".hero img", {
+      scale: 1.2,
+      ease: "none",
+      scrollTrigger: {
+        trigger: ".hero",
+        scrub: true,
+        start: "top bottom",
+        end: "bottom top"
+      }
+    });
+
+    gsap.utils.toArray(".card").forEach((card, i) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 100,
+        duration: 1.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+          toggleActions: "play none none reverse"
+        },
+        delay: i * 0.2
+      });
+    });
+
+    // Mode Toggle
+    const modeToggle = document.getElementById('mode-toggle');
+    modeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      modeToggle.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    });
+
+    // QR Code
+    new QRCode(document.getElementById("qr-code"), {
+      text: "https://your-payment-link.com", // غير إلى رابط الدفع الحقيقي
+      width: 150,
+      height: 150,
+      colorDark: var(--accent),
+      colorLight: "transparent"
+    });
+
+    // Search
+    const searchInput = document.getElementById('search-input');
+    const productGrid = document.getElementById('product-grid');
+    const cards = [...productGrid.querySelectorAll('.card')];
+
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        card.style.display = name.includes(query) ? '' : 'none';
+      });
+    });
+
+    // Product Modal
+    const productModal = document.getElementById('product-modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalTitle = document.getElementById('modal-title');
+    const modalPrice = document.getElementById('modal-price');
+    const modalDesc = document.getElementById('modal-desc');
+    const addToCartBtn = productModal.querySelector('.add-to-cart');
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        modalImg.src = card.querySelector('img').src;
+        modalTitle.textContent = card.dataset.name;
+        modalPrice.textContent = `IQD ${parseInt(card.dataset.price).toLocaleString()}`;
+        modalDesc.textContent = card.dataset.desc;
+        productModal.style.display = 'flex';
+        addToCartBtn.dataset.product = JSON.stringify({
+          name: card.dataset.name,
+          price: card.dataset.price,
+          img: card.querySelector('img').src
+        });
+      });
+    });
+
+    // Close Modals
+    document.querySelectorAll('.close').forEach(close => {
+      close.addEventListener('click', () => {
+        close.parentElement.parentElement.style.display = 'none';
+      });
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+      }
+    });
+
+    // Cart
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = document.getElementById('cart-count');
+    const cartModal = document.getElementById('cart-modal');
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const cartIcon = document.querySelector('.cart-icon');
+
+    function updateCart() {
+      cartCount.textContent = cart.length;
+      localStorage.setItem('cart', JSON.stringify(cart));
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += parseInt(item.price);
+        const div = document.createElement('div');
+        div.classList.add('cart-item');
+        div.innerHTML = `<span>${item.name}</span><span>IQD ${parseInt(item.price).toLocaleString()}</span>`;
+        cartItems.appendChild(div);
+      });
+      cartTotal.textContent = `الإجمالي: IQD ${total.toLocaleString()}`;
+    }
+
+    addToCartBtn.addEventListener('click', () => {
+      const product = JSON.parse(addToCartBtn.dataset.product);
+      cart.push(product);
+      updateCart();
+      productModal.style.display = 'none';
+    });
+
+    cartIcon.addEventListener('click', () => {
+      cartModal.style.display = 'flex';
+    });
+
+    updateCart();
+  </script>
+
+</body>
+</html>
