@@ -4,33 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FNB | براندات خاصة</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  
+
   <style>
     :root {
-      --bg: #0f0f0f;
-      --glass-bg: rgba(20, 20, 25, 0.35);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --accent: #d4af37;
-      --text: #f5f5f5;
-      --text-muted: #b0b0b0;
-      --light-bg: #f5f5f5;
-      --light-text: #0f0f0f;
-      --light-accent: #a07a2a;
-    }
-
-    body.light {
-      --bg: var(--light-bg);
-      --text: var(--light-text);
-      --accent: var(--light-accent);
-      --glass-bg: rgba(255, 255, 255, 0.35);
-      --glass-border: rgba(0, 0, 0, 0.08);
-      --text-muted: #505050;
+      --bg: #0a0c10;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-border: rgba(255, 255, 255, 0.07);
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a8;
+      --text-muted: #70747c;
+      --glow: rgba(255, 255, 255, 0.08);
     }
 
     * {
@@ -42,13 +31,10 @@
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
-      color: var(--text);
+      color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
-      background-image: 
-        radial-gradient(circle at 20% 30%, rgba(212,175,55,0.06) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(100,80,30,0.08) 0%, transparent 50%);
-      transition: background 0.5s, color 0.5s;
+      line-height: 1.6;
     }
 
     header {
@@ -56,22 +42,21 @@
       top: 0;
       width: 100%;
       z-index: 1000;
-      padding: 1.5rem 5%;
+      padding: 1.4rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      background: var(--glass-bg);
-      border-bottom: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      background: rgba(10, 12, 16, 0.45);
+      border-bottom: 1px solid var(--surface-border);
     }
 
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2.1rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      color: var(--accent);
+      font-size: 1.9rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--text-primary);
     }
 
     nav {
@@ -80,48 +65,50 @@
     }
 
     nav a {
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-decoration: none;
-      margin-left: 2.5rem;
+      margin-left: 2.4rem;
+      font-size: 0.94rem;
       font-weight: 400;
       transition: color 0.4s ease;
     }
 
     nav a:hover {
-      color: var(--text);
+      color: var(--text-primary);
     }
 
     .cart-icon {
       position: relative;
-      margin-left: 2rem;
+      margin-left: 2.2rem;
       cursor: pointer;
+      font-size: 1.1rem;
     }
 
     .cart-count {
       position: absolute;
-      top: -10px;
+      top: -8px;
       right: -10px;
-      background: var(--accent);
-      color: var(--bg);
+      background: rgba(255,255,255,0.15);
+      color: var(--text-primary);
       border-radius: 50%;
-      padding: 0.2rem 0.6rem;
-      font-size: 0.8rem;
+      padding: 0.15rem 0.5rem;
+      font-size: 0.75rem;
     }
 
     .mode-toggle {
       margin-left: 2rem;
       cursor: pointer;
-      font-size: 1.2rem;
+      font-size: 1.15rem;
     }
 
     .hero {
-      height: 100vh;
-      min-height: 800px;
+      height: 90vh;
+      min-height: 720px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      position: relative;
       padding: 0 5%;
       overflow: hidden;
     }
@@ -130,7 +117,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+      background: linear-gradient(to bottom, rgba(10,12,16,0.18), rgba(10,12,16,0.78));
       z-index: 1;
     }
 
@@ -140,71 +127,72 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: brightness(0.65);
+      filter: brightness(0.52) contrast(1.08);
       will-change: transform;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 900px;
+      max-width: 880px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(4.5rem, 12vw, 9rem);
+      font-size: clamp(3.8rem, 10vw, 7.2rem);
+      font-weight: 500;
       line-height: 0.92;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.4rem;
     }
 
     .hero p {
-      font-size: 1.5rem;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-      color: var(--text-muted);
+      font-size: 1.38rem;
+      color: var(--text-secondary);
+      max-width: 580px;
+      margin: 0 auto 2.6rem;
     }
 
     .shop-btn {
       display: inline-block;
-      padding: 1rem 3rem;
+      padding: 0.95rem 2.6rem;
       background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-size: 1.1rem;
-      letter-spacing: 0.2em;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.92);
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.5s ease;
-      backdrop-filter: blur(10px);
+      border-radius: 999px;
+      backdrop-filter: blur(12px);
+      transition: all 0.45s ease;
     }
 
     .shop-btn:hover {
-      background: var(--accent);
-      color: var(--bg);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(212,175,55,0.25);
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.35);
+      transform: translateY(-3px);
     }
 
     #search-bar {
       width: 100%;
-      max-width: 600px;
-      margin: 2rem auto;
+      max-width: 620px;
+      margin: 2.5rem auto;
       padding: 1rem;
-      background: var(--glass-bg);
-      border-radius: 50px;
+      background: var(--surface);
+      border-radius: 999px;
+      border: 1px solid var(--surface-border);
+      backdrop-filter: blur(16px);
       display: flex;
-      backdrop-filter: blur(10px);
     }
 
     #search-input {
       flex: 1;
       background: transparent;
       border: none;
-      color: var(--text);
-      font-size: 1.1rem;
-      padding: 0 1rem;
+      color: var(--text-primary);
+      font-size: 1.05rem;
+      padding: 0 1.2rem;
     }
 
     #search-input::placeholder {
@@ -212,49 +200,69 @@
     }
 
     section {
-      padding: 8rem 5%;
+      padding: 10rem 5%;
     }
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.5rem;
+      font-size: 4.2rem;
+      font-weight: 500;
       text-align: center;
-      margin-bottom: 5rem;
-      background: linear-gradient(90deg, var(--accent), #f5e050, var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      margin-bottom: 6rem;
+      color: var(--text-primary);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 3.5rem;
       max-width: 1600px;
       margin: 0 auto;
     }
 
     .card {
       position: relative;
-      border-radius: 24px;
+      border-radius: 20px;
+      background: var(--surface);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--surface-border);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
       overflow: hidden;
-      background: var(--glass-bg);
-      backdrop-filter: blur(32px);
-      -webkit-backdrop-filter: blur(32px);
-      border: 1px solid var(--glass-border);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-      transition: all 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1),
+                  box-shadow 0.55s ease;
       cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle 800px at var(--x, 50%) var(--y, 50%), var(--glow), transparent 45%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      mix-blend-mode: screen;
+    }
+
+    .card:hover::after {
+      opacity: 1;
     }
 
     .card img {
       width: 100%;
-      height: 420px;
+      height: 400px;
       object-fit: cover;
-      transition: transform 1.2s ease;
+      transition: transform 1.3s ease;
     }
 
     .card:hover img {
-      transform: scale(1.12);
+      transform: scale(1.06);
     }
 
     .card-info {
@@ -264,39 +272,37 @@
 
     .card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
+      font-weight: 500;
+      margin-bottom: 0.6rem;
     }
 
     .price {
-      font-size: 1.4rem;
-      color: var(--accent);
-      font-weight: 500;
+      font-size: 1.35rem;
+      color: var(--text-primary);
+      font-weight: 400;
     }
 
-    /* Modal */
     .modal {
       display: none;
       position: fixed;
       z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.8);
+      inset: 0;
+      background: rgba(0,0,0,0.82);
       align-items: center;
       justify-content: center;
     }
 
     .modal-content {
-      background: var(--glass-bg);
+      background: var(--surface);
       backdrop-filter: blur(20px);
+      border: 1px solid var(--surface-border);
       border-radius: 24px;
-      padding: 2rem;
-      max-width: 900px;
-      width: 90%;
+      padding: 2.2rem;
+      max-width: 920px;
+      width: 92%;
       display: flex;
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .modal-img {
@@ -309,76 +315,74 @@
     }
 
     .modal h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.2rem;
     }
 
     .modal p {
-      font-size: 1.2rem;
-      color: var(--text-muted);
-      margin-bottom: 2rem;
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      margin-bottom: 2.2rem;
     }
 
     .add-to-cart {
-      padding: 1rem 2rem;
-      background: var(--accent);
-      color: var(--bg);
-      border: none;
-      border-radius: 50px;
+      padding: 1rem 2.2rem;
+      background: rgba(255,255,255,0.1);
+      color: var(--text-primary);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 999px;
       cursor: pointer;
-      font-size: 1.1rem;
-      transition: transform 0.3s;
+      font-size: 1.05rem;
+      transition: all 0.4s;
     }
 
     .add-to-cart:hover {
-      transform: scale(1.05);
+      background: rgba(255,255,255,0.18);
     }
 
     .close {
       position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 2rem;
+      top: 1.2rem;
+      right: 1.4rem;
+      font-size: 2.2rem;
       cursor: pointer;
-      color: var(--text);
+      color: var(--text-secondary);
     }
 
-    /* Cart Modal */
     #cart-modal .modal-content {
       flex-direction: column;
-      max-width: 600px;
+      max-width: 580px;
     }
 
     .cart-item {
       display: flex;
       justify-content: space-between;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--glass-border);
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--surface-border);
     }
 
-    /* Footer */
     footer {
-      background: var(--glass-bg);
+      background: var(--surface);
       backdrop-filter: blur(24px);
-      padding: 4rem 5%;
+      padding: 5rem 5%;
       text-align: center;
-      border-top: 1px solid var(--glass-border);
+      border-top: 1px solid var(--surface-border);
     }
 
     footer a {
-      color: var(--text-muted);
-      margin: 0 1rem;
+      color: var(--text-secondary);
+      margin: 0 1.2rem;
       text-decoration: none;
     }
 
     footer a:hover {
-      color: var(--text);
+      color: var(--text-primary);
     }
 
     #qr-code {
-      margin: 2rem auto;
-      width: 150px;
-      height: 150px;
+      margin: 2.5rem auto;
+      width: 140px;
+      height: 140px;
     }
 
     @media (max-width: 768px) {
@@ -388,13 +392,14 @@
       .modal-img, .modal-info {
         width: 100%;
       }
-      .hero h1 { font-size: 4rem; }
-      h2 { font-size: 3rem; }
+      .hero h1 { font-size: 3.8rem; }
+      h2 { font-size: 3.2rem; }
       .grid { grid-template-columns: 1fr; }
-      .card img { height: 350px; }
+      .card img { height: 360px; }
     }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -412,7 +417,7 @@
   <section class="hero">
     <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=90&w=2000" alt="Luxury Fashion">
     <div class="hero-content">
-      <h1>ما أنصنع<br>من غير بيئه! </h1>
+      <h1>ما أنصنع<br>من غير بيئه!</h1>
       <p>مجموعات حصرية — براندات نادرة — تصاميم لا تتكرر</p>
       <a href="#products" class="shop-btn">استكشف المجموعة</a>
     </div>
@@ -432,6 +437,7 @@
           <div class="price">IQD 1,450,000</div>
         </div>
       </div>
+      <!-- باقي الكروت نفسها بدون تغيير في البيانات -->
       <div class="card" data-name="Velvet Shadow Drop" data-price="980000" data-desc="قميص مخملي أسود مع تفاصيل ذهبية، لإطلالة ليلية أنيقة.">
         <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=90&w=800" alt="Product 2">
         <div class="card-info">
@@ -473,7 +479,7 @@
   <!-- Product Modal -->
   <div id="product-modal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close">×</span>
       <img id="modal-img" class="modal-img" src="" alt="">
       <div class="modal-info">
         <h2 id="modal-title"></h2>
@@ -487,7 +493,7 @@
   <!-- Cart Modal -->
   <div id="cart-modal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close">×</span>
       <h2>سلة التسوق</h2>
       <div id="cart-items"></div>
       <div id="cart-total" class="price">الإجمالي: IQD 0</div>
@@ -503,39 +509,51 @@
       <a href="privacy.html">سياسة الخصوصية</a>
       <a href="terms.html">شروط الاستخدام</a>
     </div>
-    <p>&copy; 2026 FNB. جميع الحقوق محفوظة.</p>
+    <p>© 2026 FNB. جميع الحقوق محفوظة.</p>
   </footer>
 
   <script>
-    // GSAP Animations
     gsap.registerPlugin(ScrollTrigger);
+
+    // Parallax خفيف
     gsap.to(".hero img", {
-      scale: 1.2,
+      yPercent: 12,
       ease: "none",
       scrollTrigger: {
         trigger: ".hero",
-        scrub: true,
-        start: "top bottom",
-        end: "bottom top"
+        scrub: 1.4
       }
     });
 
+    // Cards fade in ناعم
     gsap.utils.toArray(".card").forEach((card, i) => {
       gsap.from(card, {
         opacity: 0,
-        y: 100,
-        duration: 1.2,
-        ease: "power3.out",
+        y: 32,
+        duration: 1.15,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: card,
-          start: "top 90%",
-          toggleActions: "play none none reverse"
+          start: "top 82%",
         },
-        delay: i * 0.2
+        delay: i * 0.07
       });
     });
 
-    // Mode Toggle
+    // Glow follow mouse
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--x', '50%');
+        card.style.setProperty('--y', '50%');
+      });
+    });
+
+    // Mode Toggle (احتفظنا به لكن بدون تغيير كبير للألوان)
     const modeToggle = document.getElementById('mode-toggle');
     modeToggle.addEventListener('click', () => {
       document.body.classList.toggle('light');
@@ -544,10 +562,10 @@
 
     // QR Code
     new QRCode(document.getElementById("qr-code"), {
-      text: "https://your-payment-link.com", // غير إلى رابط الدفع الحقيقي
-      width: 150,
-      height: 150,
-      colorDark: var(--accent),
+      text: "https://your-payment-link.com",
+      width: 140,
+      height: 140,
+      colorDark: "#ffffff",
       colorLight: "transparent"
     });
 
@@ -590,7 +608,7 @@
     // Close Modals
     document.querySelectorAll('.close').forEach(close => {
       close.addEventListener('click', () => {
-        close.parentElement.parentElement.style.display = 'none';
+        close.closest('.modal').style.display = 'none';
       });
     });
 
@@ -600,7 +618,7 @@
       }
     });
 
-    // Cart
+    // Cart logic
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCount = document.getElementById('cart-count');
     const cartModal = document.getElementById('cart-modal');
@@ -636,6 +654,5 @@
 
     updateCart();
   </script>
-
 </body>
 </html>
