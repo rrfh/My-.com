@@ -4,22 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FNB | براندات خاصة</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">  
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
   <style>
     :root {
-      --bg: #0a0c10;
-      --surface: rgba(255, 255, 255, 0.04);
-      --surface-border: rgba(255, 255, 255, 0.07);
-      --text-primary: #f0f0f0;
-      --text-secondary: #a0a0a8;
-      --text-muted: #70747c;
-      --glow: rgba(255, 255, 255, 0.08);
+      --bg: #090b0f;
+      --surface: rgba(255, 255, 255, 0.06);
+      --surface-border: rgba(255, 255, 255, 0.135);
+      --text-primary: #f4f4f4;
+      --text-secondary: #acacb4;
+      --text-muted: #77778a;
+      --glow: rgba(255, 255, 255, 0.095);
+      --blur-amount: 18px;
     }
 
     * {
@@ -34,28 +35,40 @@
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
-      line-height: 1.6;
+      line-height: 1.62;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: inherit;
+      backdrop-filter: blur(4.5px);
+      opacity: 0.16;
+      z-index: -2;
+      pointer-events: none;
     }
 
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      inset-block-start: 0;
+      inline-size: 100%;
       z-index: 1000;
-      padding: 1.4rem 5%;
+      padding: 1.5rem 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(20px);
-      background: rgba(10, 12, 16, 0.45);
-      border-bottom: 1px solid var(--surface-border);
+      backdrop-filter: blur(24px);
+      background: rgba(9, 11, 15, 0.55);
+      border-block-end: 1px solid var(--surface-border);
     }
 
     .logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.9rem;
+      font-size: 2rem;
       font-weight: 500;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       color: var(--text-primary);
     }
 
@@ -67,43 +80,34 @@
     nav a {
       color: var(--text-secondary);
       text-decoration: none;
-      margin-left: 2.4rem;
-      font-size: 0.94rem;
-      font-weight: 400;
-      transition: color 0.4s ease;
+      margin-inline-start: 2.6rem;
+      font-size: 0.96rem;
+      transition: color 0.42s ease;
     }
 
-    nav a:hover {
-      color: var(--text-primary);
-    }
+    nav a:hover { color: var(--text-primary); }
 
     .cart-icon {
       position: relative;
-      margin-left: 2.2rem;
+      margin-inline-start: 2.4rem;
       cursor: pointer;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
 
     .cart-count {
       position: absolute;
-      top: -8px;
-      right: -10px;
-      background: rgba(255,255,255,0.15);
-      color: var(--text-primary);
+      inset-block-start: -10px;
+      inset-inline-end: -12px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
       border-radius: 50%;
-      padding: 0.15rem 0.5rem;
-      font-size: 0.75rem;
-    }
-
-    .mode-toggle {
-      margin-left: 2rem;
-      cursor: pointer;
-      font-size: 1.15rem;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.8rem;
     }
 
     .hero {
-      height: 90vh;
-      min-height: 720px;
+      block-size: 92vh;
+      min-block-size: 740px;
       position: relative;
       display: flex;
       align-items: center;
@@ -117,72 +121,71 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(10,12,16,0.18), rgba(10,12,16,0.78));
+      background: linear-gradient(to bottom, rgba(9,11,15,0.22), rgba(9,11,15,0.82));
       z-index: 1;
     }
 
     .hero img {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      inline-size: 100%;
+      block-size: 100%;
       object-fit: cover;
-      filter: brightness(0.52) contrast(1.08);
+      filter: brightness(0.48) contrast(1.12);
       will-change: transform;
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 880px;
+      max-inline-size: 920px;
     }
 
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.8rem, 10vw, 7.2rem);
+      font-size: clamp(4.2rem, 11.5vw, 8rem);
       font-weight: 500;
-      line-height: 0.92;
-      letter-spacing: -0.04em;
-      margin-bottom: 1.4rem;
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      margin-block-end: 1.6rem;
     }
 
     .hero p {
-      font-size: 1.38rem;
+      font-size: 1.45rem;
       color: var(--text-secondary);
-      max-width: 580px;
-      margin: 0 auto 2.6rem;
+      max-inline-size: 620px;
+      margin: 0 auto 3rem;
     }
 
     .shop-btn {
       display: inline-block;
-      padding: 0.95rem 2.6rem;
+      padding: 1.05rem 3rem;
       background: transparent;
-      border: 1px solid rgba(255,255,255,0.22);
-      color: rgba(255,255,255,0.92);
-      font-size: 1.05rem;
-      letter-spacing: 0.18em;
+      border: 1px solid rgba(255,255,255,0.26);
+      color: rgba(255,255,255,0.96);
+      font-size: 1.1rem;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       text-decoration: none;
       border-radius: 999px;
-      backdrop-filter: blur(12px);
-      transition: all 0.45s ease;
+      backdrop-filter: blur(16px);
+      transition: all 0.5s cubic-bezier(0.16,1,0.3,1);
     }
 
     .shop-btn:hover {
-      background: rgba(255,255,255,0.09);
-      border-color: rgba(255,255,255,0.35);
-      transform: translateY(-3px);
+      background: rgba(255,255,255,0.11);
+      border-color: rgba(255,255,255,0.42);
+      transform: translateY(-5px);
     }
 
     #search-bar {
-      width: 100%;
-      max-width: 620px;
-      margin: 2.5rem auto;
-      padding: 1rem;
+      max-inline-size: 660px;
+      margin: 3rem auto;
+      padding: 1.15rem;
       background: var(--surface);
       border-radius: 999px;
       border: 1px solid var(--surface-border);
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(var(--blur-amount));
       display: flex;
     }
 
@@ -191,52 +194,46 @@
       background: transparent;
       border: none;
       color: var(--text-primary);
-      font-size: 1.05rem;
-      padding: 0 1.2rem;
+      font-size: 1.1rem;
+      padding: 0 1.4rem;
     }
 
-    #search-input::placeholder {
-      color: var(--text-muted);
-    }
+    #search-input::placeholder { color: var(--text-muted); }
 
-    section {
-      padding: 10rem 5%;
-    }
+    section { padding-block: 12rem; padding-inline: 5%; }
 
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 4.2rem;
+      font-size: 4.6rem;
       font-weight: 500;
       text-align: center;
-      margin-bottom: 6rem;
+      margin-block-end: 7rem;
       color: var(--text-primary);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 3.5rem;
-      max-width: 1600px;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 4.2rem;
+      max-inline-size: 1720px;
       margin: 0 auto;
     }
 
     .card {
       position: relative;
-      border-radius: 20px;
+      border-radius: 24px;
       background: var(--surface);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(var(--blur-amount));
       border: 1px solid var(--surface-border);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.28);
       overflow: hidden;
-      transition: transform 0.55s cubic-bezier(0.16,1,0.3,1),
-                  box-shadow 0.55s ease;
+      transition: all 0.65s cubic-bezier(0.16,1,0.3,1);
       cursor: pointer;
     }
 
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+      transform: translateY(-9px);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.4);
     }
 
     .card::after {
@@ -244,41 +241,34 @@
       position: absolute;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle 800px at var(--x, 50%) var(--y, 50%), var(--glow), transparent 45%);
+      background: radial-gradient(circle 1000px at var(--x,50%) var(--y,50%), var(--glow), transparent 55%);
       opacity: 0;
-      transition: opacity 0.4s ease;
+      transition: opacity 0.5s ease;
       mix-blend-mode: screen;
     }
 
-    .card:hover::after {
-      opacity: 1;
-    }
+    .card:hover::after { opacity: 1; }
 
     .card img {
-      width: 100%;
-      height: 400px;
+      inline-size: 100%;
+      block-size: 440px;
       object-fit: cover;
-      transition: transform 1.3s ease;
+      transition: transform 1.5s ease;
     }
 
-    .card:hover img {
-      transform: scale(1.06);
-    }
+    .card:hover img { transform: scale(1.08); }
 
-    .card-info {
-      padding: 2rem;
-      text-align: center;
-    }
+    .card-info { padding: 2.4rem; text-align: center; }
 
     .card h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
+      font-size: 1.9rem;
       font-weight: 500;
-      margin-bottom: 0.6rem;
+      margin-block-end: 0.8rem;
     }
 
     .price {
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       color: var(--text-primary);
       font-weight: 400;
     }
@@ -286,120 +276,103 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 2000;
       inset: 0;
-      background: rgba(0,0,0,0.82);
+      z-index: 2000;
+      background: rgba(0,0,0,0.88);
       align-items: center;
       justify-content: center;
+      backdrop-filter: blur(10px);
     }
 
     .modal-content {
       background: var(--surface);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(28px);
       border: 1px solid var(--surface-border);
-      border-radius: 24px;
-      padding: 2.2rem;
-      max-width: 920px;
-      width: 92%;
+      border-radius: 32px;
+      padding: 2.8rem;
+      max-inline-size: 1000px;
+      inline-size: 95%;
       display: flex;
-      gap: 2.5rem;
+      gap: 3.2rem;
+      opacity: 0;
+      scale: 0.68;
+      filter: blur(8px);
     }
 
-    .modal-img {
-      width: 50%;
-      border-radius: 16px;
-    }
+    .modal-img { inline-size: 50%; border-radius: 20px; }
+    .modal-info { inline-size: 50%; }
 
-    .modal-info {
-      width: 50%;
-    }
-
-    .modal h2 {
-      font-size: 2.4rem;
-      margin-bottom: 1.2rem;
-    }
+    .modal h2 { font-size: 2.8rem; margin-block-end: 1.4rem; }
 
     .modal p {
-      font-size: 1.15rem;
+      font-size: 1.22rem;
       color: var(--text-secondary);
-      margin-bottom: 2.2rem;
+      margin-block-end: 2.8rem;
     }
 
     .add-to-cart {
-      padding: 1rem 2.2rem;
-      background: rgba(255,255,255,0.1);
+      padding: 1.15rem 2.8rem;
+      background: rgba(255,255,255,0.14);
       color: var(--text-primary);
-      border: 1px solid rgba(255,255,255,0.25);
+      border: 1px solid rgba(255,255,255,0.3);
       border-radius: 999px;
       cursor: pointer;
-      font-size: 1.05rem;
-      transition: all 0.4s;
+      font-size: 1.12rem;
+      transition: all 0.5s;
     }
 
-    .add-to-cart:hover {
-      background: rgba(255,255,255,0.18);
-    }
+    .add-to-cart:hover { background: rgba(255,255,255,0.22); }
 
     .close {
       position: absolute;
-      top: 1.2rem;
-      right: 1.4rem;
-      font-size: 2.2rem;
+      inset-block-start: 1.6rem;
+      inset-inline-end: 1.8rem;
+      font-size: 2.6rem;
       cursor: pointer;
       color: var(--text-secondary);
     }
 
     #cart-modal .modal-content {
       flex-direction: column;
-      max-width: 580px;
+      max-inline-size: 640px;
     }
 
     .cart-item {
       display: flex;
       justify-content: space-between;
-      padding: 1.1rem 0;
-      border-bottom: 1px solid var(--surface-border);
+      padding-block: 1.3rem;
+      border-block-end: 1px solid var(--surface-border);
     }
 
     footer {
       background: var(--surface);
-      backdrop-filter: blur(24px);
-      padding: 5rem 5%;
+      backdrop-filter: blur(30px);
+      padding-block: 6rem;
+      padding-inline: 5%;
       text-align: center;
-      border-top: 1px solid var(--surface-border);
+      border-block-start: 1px solid var(--surface-border);
     }
 
     footer a {
       color: var(--text-secondary);
-      margin: 0 1.2rem;
+      margin: 0 1.5rem;
       text-decoration: none;
     }
 
-    footer a:hover {
-      color: var(--text-primary);
-    }
+    footer a:hover { color: var(--text-primary); }
 
-    #qr-code {
-      margin: 2.5rem auto;
-      width: 140px;
-      height: 140px;
-    }
+    #qr-code { margin: 3.2rem auto; inline-size: 160px; block-size: 160px; }
 
     @media (max-width: 768px) {
-      .modal-content {
-        flex-direction: column;
-      }
-      .modal-img, .modal-info {
-        width: 100%;
-      }
-      .hero h1 { font-size: 3.8rem; }
-      h2 { font-size: 3.2rem; }
+      .modal-content { flex-direction: column; }
+      .modal-img, .modal-info { inline-size: 100%; }
+      .hero h1 { font-size: 4.2rem; }
+      h2 { font-size: 3.6rem; }
       .grid { grid-template-columns: 1fr; }
-      .card img { height: 360px; }
+      .card img { block-size: 400px; }
     }
   </style>
 </head>
-
 <body>
 
   <header>
@@ -431,43 +404,42 @@
     <h2>أحدث الإصدارات</h2>
     <div class="grid" id="product-grid">
       <div class="card" data-name="Obsidian Crocodile" data-price="1450000" data-desc="تصميم جلدي فاخر مستوحى من التماسيح، مثالي للمناسبات الرسمية.">
-        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=90&w=800" alt="Product 1">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Obsidian Crocodile</h3>
           <div class="price">IQD 1,450,000</div>
         </div>
       </div>
-      <!-- باقي الكروت نفسها بدون تغيير في البيانات -->
       <div class="card" data-name="Velvet Shadow Drop" data-price="980000" data-desc="قميص مخملي أسود مع تفاصيل ذهبية، لإطلالة ليلية أنيقة.">
-        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=90&w=800" alt="Product 2">
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Velvet Shadow Drop</h3>
           <div class="price">IQD 980,000</div>
         </div>
       </div>
       <div class="card" data-name="Platinum Ember" data-price="2100000" data-desc="جاكيت بلاتينيوم مع لمسات نارية، مصمم للشتاء الفاخر.">
-        <img src="https://images.unsplash.com/photo-1618354691552-1205a225f9b8?auto=format&fit=crop&q=90&w=800" alt="Product 3">
+        <img src="https://images.unsplash.com/photo-1618354691552-1205a225f9b8?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Platinum Ember</h3>
           <div class="price">IQD 2,100,000</div>
         </div>
       </div>
       <div class="card" data-name="Golden Horizon" data-price="1750000" data-desc="فستان ذهبي مع تفاصيل أفقية، مثالي للحفلات.">
-        <img src="https://images.unsplash.com/photo-1566174053879-31528523f2ae?auto=format&fit=crop&q=90&w=800" alt="Product 4">
+        <img src="https://images.unsplash.com/photo-1566174053879-31528523f2ae?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Golden Horizon</h3>
           <div class="price">IQD 1,750,000</div>
         </div>
       </div>
       <div class="card" data-name="Sapphire Veil" data-price="1200000" data-desc="حجاب ياقوتي مع طبقات شفافة، لإطلالة عصرية.">
-        <img src="https://images.unsplash.com/photo-1585128792020-817b91ed3140?auto=format&fit=crop&q=90&w=800" alt="Product 5">
+        <img src="https://images.unsplash.com/photo-1585128792020-817b91ed3140?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Sapphire Veil</h3>
           <div class="price">IQD 1,200,000</div>
         </div>
       </div>
       <div class="card" data-name="Emerald Legacy" data-price="2500000" data-desc="بدلة زمردية تقليدية مع لمسات حديثة.">
-        <img src="https://images.unsplash.com/photo-1525507119028-ed4c66a0dfc0?auto=format&fit=crop&q=90&w=800" alt="Product 6">
+        <img src="https://images.unsplash.com/photo-1525507119028-ed4c66a0dfc0?auto=format&fit=crop&q=90&w=800" alt="">
         <div class="card-info">
           <h3>Emerald Legacy</h3>
           <div class="price">IQD 2,500,000</div>
@@ -476,7 +448,6 @@
     </div>
   </section>
 
-  <!-- Product Modal -->
   <div id="product-modal" class="modal">
     <div class="modal-content">
       <span class="close">×</span>
@@ -490,7 +461,6 @@
     </div>
   </div>
 
-  <!-- Cart Modal -->
   <div id="cart-modal" class="modal">
     <div class="modal-content">
       <span class="close">×</span>
@@ -515,32 +485,26 @@
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Parallax خفيف
+    // Parallax ناعم
     gsap.to(".hero img", {
-      yPercent: 12,
+      yPercent: 14,
       ease: "none",
-      scrollTrigger: {
-        trigger: ".hero",
-        scrub: 1.4
-      }
+      scrollTrigger: { trigger: ".hero", scrub: 1.6 }
     });
 
-    // Cards fade in ناعم
+    // ظهور الكروت
     gsap.utils.toArray(".card").forEach((card, i) => {
       gsap.from(card, {
         opacity: 0,
-        y: 32,
-        duration: 1.15,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 82%",
-        },
-        delay: i * 0.07
+        y: 40,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: { trigger: card, start: "top 78%" },
+        delay: i * 0.09
       });
     });
 
-    // Glow follow mouse
+    // Glow يتبع الماوس
     document.querySelectorAll('.card').forEach(card => {
       card.addEventListener('mousemove', e => {
         const rect = card.getBoundingClientRect();
@@ -553,80 +517,76 @@
       });
     });
 
-    // Mode Toggle (احتفظنا به لكن بدون تغيير كبير للألوان)
-    const modeToggle = document.getElementById('mode-toggle');
-    modeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('light');
-      modeToggle.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
-    });
+    // أنميشن المودال (بطيء + واقعي + حاد)
+    const productModal = document.getElementById('product-modal');
+    const modalContent = productModal.querySelector('.modal-content');
 
-    // QR Code
-    new QRCode(document.getElementById("qr-code"), {
-      text: "https://your-payment-link.com",
-      width: 140,
-      height: 140,
-      colorDark: "#ffffff",
-      colorLight: "transparent"
-    });
+    function openProductModal() {
+      productModal.style.display = 'flex';
+      gsap.to(modalContent, {
+        opacity: 1,
+        scale: 1,
+        filter: "blur(0px)",
+        duration: 1.4,
+        ease: "expo.out",
+        transformOrigin: "center center"
+      });
+    }
 
-    // Search
+    function closeModal(modal) {
+      gsap.to(modal.querySelector('.modal-content'), {
+        opacity: 0,
+        scale: 0.7,
+        filter: "blur(10px)",
+        duration: 0.85,
+        ease: "expo.in",
+        onComplete: () => modal.style.display = 'none'
+      });
+    }
+
+    // Product modal logic
     const searchInput = document.getElementById('search-input');
     const productGrid = document.getElementById('product-grid');
     const cards = [...productGrid.querySelectorAll('.card')];
 
-    searchInput.addEventListener('input', (e) => {
-      const query = e.target.value.toLowerCase();
-      cards.forEach(card => {
-        const name = card.dataset.name.toLowerCase();
-        card.style.display = name.includes(query) ? '' : 'none';
-      });
-    });
-
-    // Product Modal
-    const productModal = document.getElementById('product-modal');
-    const modalImg = document.getElementById('modal-img');
-    const modalTitle = document.getElementById('modal-title');
-    const modalPrice = document.getElementById('modal-price');
-    const modalDesc = document.getElementById('modal-desc');
-    const addToCartBtn = productModal.querySelector('.add-to-cart');
-
     cards.forEach(card => {
       card.addEventListener('click', () => {
-        modalImg.src = card.querySelector('img').src;
-        modalTitle.textContent = card.dataset.name;
-        modalPrice.textContent = `IQD ${parseInt(card.dataset.price).toLocaleString()}`;
-        modalDesc.textContent = card.dataset.desc;
-        productModal.style.display = 'flex';
-        addToCartBtn.dataset.product = JSON.stringify({
-          name: card.dataset.name,
-          price: card.dataset.price,
-          img: card.querySelector('img').src
-        });
+        document.getElementById('modal-img').src = card.querySelector('img').src;
+        document.getElementById('modal-title').textContent = card.dataset.name;
+        document.getElementById('modal-price').textContent = `IQD ${parseInt(card.dataset.price).toLocaleString()}`;
+        document.getElementById('modal-desc').textContent = card.dataset.desc;
+        openProductModal();
       });
     });
 
-    // Close Modals
-    document.querySelectorAll('.close').forEach(close => {
-      close.addEventListener('click', () => {
-        close.closest('.modal').style.display = 'none';
+    // Close handlers
+    document.querySelectorAll('.close').forEach(closeBtn => {
+      closeBtn.addEventListener('click', () => closeModal(closeBtn.closest('.modal')));
+    });
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal(modal);
       });
     });
 
-    window.addEventListener('click', (e) => {
-      if (e.target.classList.contains('modal')) {
-        e.target.style.display = 'none';
-      }
+    // Search
+    searchInput.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase();
+      cards.forEach(c => {
+        c.style.display = c.dataset.name.toLowerCase().includes(q) ? '' : 'none';
+      });
     });
 
-    // Cart logic
+    // Cart logic (simplified - same as before)
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartCount = document.getElementById('cart-count');
     const cartModal = document.getElementById('cart-modal');
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
-    const cartIcon = document.querySelector('.cart-icon');
+    const addToCartBtn = document.querySelector('#product-modal .add-to-cart');
 
-    function updateCart() {
+    function updateCartDisplay() {
       cartCount.textContent = cart.length;
       localStorage.setItem('cart', JSON.stringify(cart));
       cartItems.innerHTML = '';
@@ -634,7 +594,7 @@
       cart.forEach(item => {
         total += parseInt(item.price);
         const div = document.createElement('div');
-        div.classList.add('cart-item');
+        div.className = 'cart-item';
         div.innerHTML = `<span>${item.name}</span><span>IQD ${parseInt(item.price).toLocaleString()}</span>`;
         cartItems.appendChild(div);
       });
@@ -642,17 +602,39 @@
     }
 
     addToCartBtn.addEventListener('click', () => {
-      const product = JSON.parse(addToCartBtn.dataset.product);
+      const product = {
+        name: document.getElementById('modal-title').textContent,
+        price: document.getElementById('modal-price').textContent.replace(/[^0-9]/g,''),
+        img: document.getElementById('modal-img').src
+      };
       cart.push(product);
-      updateCart();
-      productModal.style.display = 'none';
+      updateCartDisplay();
+      closeModal(productModal);
     });
 
-    cartIcon.addEventListener('click', () => {
+    document.querySelector('.cart-icon').addEventListener('click', () => {
       cartModal.style.display = 'flex';
+      gsap.from(cartModal.querySelector('.modal-content'), {
+        opacity: 0, y: 30, duration: 0.9, ease: "power3.out"
+      });
     });
 
-    updateCart();
+    updateCartDisplay();
+
+    // QR
+    new QRCode(document.getElementById("qr-code"), {
+      text: "https://example.com/payment",
+      width: 160,
+      height: 160,
+      colorDark: "#ffffff",
+      colorLight: "transparent"
+    });
+
+    // Dark/Light toggle (optional - kept minimal)
+    document.getElementById('mode-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      document.getElementById('mode-toggle').textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    });
   </script>
 </body>
 </html>
